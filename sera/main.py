@@ -95,17 +95,14 @@ class Experiment:
 # Runner
 # ----- (ask danny?)
 # TODO: fix sweagent and add way to get personal prs
+# TODO: configs for swebench, example usecases
 # TODO: uv install
 # TODO: submit open source request
-# TODO: copyright for copied code
-# TODO: filtering
 # -----
 # TODO: Cleanup
 # TODO: Run on UW cluster
 # TODO: document everything
 # TODO: See if possible to use container thats only local
-# TODO: add inference scripts, remove all senstivie ai2 info
-# TODO: convert token counter away from torchtune
 
 @hydra.main(version_base=None, config_path="configs", config_name="config") # TODO: Add example of running on a standard cluster with shards
 def main(cfg: DictConfig) -> None:
