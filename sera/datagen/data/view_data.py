@@ -1,3 +1,20 @@
+"""
+View generated trajectories step-by-step.
+
+Displays randomly sampled instances from a JSONL dataset, showing each message
+role, content, and training flags in a readable format.
+
+Usage:
+    python view_data.py -d <data_file> [-n <num_samples>]
+
+Arguments:
+    -d, --data      Path to JSONL data file
+    -n, --number    Number of random instances to view (default: 3)
+
+Example:
+    python view_data.py -d trajectories.jsonl -n 5
+"""
+
 import argparse
 import json
 import os

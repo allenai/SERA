@@ -25,16 +25,16 @@ from sera.constants import SWEBENCH_IMAGES, SWESMITH_IMAGES
 from sera.datagen.data.generate.docker import build_container
 from sera.datagen.data.generate.codebase_parsing import get_adj_list, find_code_folders
 
-# from datagen.data.edit_utils import *
-# from datagen.data.utils import *
-
 ##############################
-# repository classes
+# repository classes for generate.py
 
 DEVNULL = {"stdout": subprocess.DEVNULL, "stderr": subprocess.DEVNULL}
 
 @dataclass
 class RepositoryInstance:
+    """
+    Represents a single instance of a repository thats ready to be processed for data generation.
+    """
     parent: None
     base_commit: str
     """Set later via mutator"""
@@ -130,7 +130,10 @@ class Repository:
             subprocess.run(["rm", ".git/index.lock"], cwd=self.repo_path)
 
 @dataclass
-class ExistingRepository(Repository): # TODO: Only attr with default should be set by setup
+class ExistingRepository(Repository):
+    """
+    Represents repositories that already have a docker image from swebench, swesmith, or somewhere else.
+    """
     source: str
     base_commit: Optional[str]
     instance_id: Optional[str]
@@ -163,7 +166,10 @@ class ExistingRepository(Repository): # TODO: Only attr with default should be s
             print(e)
 
 @dataclass
-class LocalRepository(Repository): # TODO: Only attr with default should be set by setup
+class LocalRepository(Repository):
+    """
+    Represents new codebases that we want to create an image for and generate data from.
+    """
     python_version: str
     install_cmds: List[str]
     test_cmd: str
@@ -240,9 +246,8 @@ class LocalRepository(Repository): # TODO: Only attr with default should be set 
 
 
 ##############################
-# synthetic classes
+# classes representing synthetic data for no_bug_dataset.py
 
-# Instance object
 @dataclass
 class SyntheticInstance:
     repo: RepositoryInstance # SET TO NONE WHEN CONVERTING TO JSON INSTANCE

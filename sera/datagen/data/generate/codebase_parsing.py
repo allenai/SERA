@@ -86,9 +86,7 @@ def get_full_path(folders, func, code_dict):
     func_components = func_name.split(".")
     for folder in folders:
         glob_path = os.path.join(folder, file_name)
-        # print(glob_path)
         matches = [n for n in glob.glob(glob_path) if os.path.isfile(n)]
-        # print(matches)
         for file_path in matches:
             if file_path in code_dict:
                 file_text = code_dict[file_path]
@@ -104,7 +102,6 @@ def get_full_path(folders, func, code_dict):
                 found_times += 1 
                 
     # Only return successfully if we found a unique occurence of the function
-    # print(found_times, func_name, func)
     if found_times == 1:
         return found_file_path + "::" + func_name
     else:
@@ -122,8 +119,6 @@ def convert_to_file_path(call_graph, folders, node_id_to_name, nodes):
     # Get line mappings of each function file path and create map of func name to func path
     remove_nodes = set()
     for i, func in enumerate(call_graph.keys()):
-        # print(f"{i}/{len(call_graph.keys())}: {len(remove_nodes)}")
-        # print(folders, func)
         file_path = get_full_path(folders, func, code_dict)
         if file_path is None:
             remove_nodes.add(func)
@@ -183,7 +178,7 @@ def get_adj_list(repo_path: str,
             call_graph = json.load(f)
         # Get call graph in adjacency list format
         adj_list, node_id_to_name, nodes = convert_code2flow_to_adj(call_graph["graph"])
-        # Convert call graph to using full file paths, by default code2flow uses file_name::func_name
+        # Convert call graph to use full file paths, by default code2flow uses file_name::func_name
         adj_list, _ = convert_to_file_path(adj_list, [os.path.split(p)[0] for p in relevant_folders], node_id_to_name, nodes)
     except FileNotFoundError:
         # Sometimes codeflow fails, and then there is no file to read.

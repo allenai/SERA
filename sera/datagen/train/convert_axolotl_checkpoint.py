@@ -1,14 +1,3 @@
-#!/usr/bin/env -S uv run --script
-# /// script
-# requires-python = ">=3.11"
-# dependencies = [
-#     "safetensors",
-#     "tqdm",
-#     "packaging",
-#     "torch",
-#     "numpy",
-# ]
-# ///
 """
 Convert a checkpoint with _checkpoint_wrapped_module in weight names to standard format.
 

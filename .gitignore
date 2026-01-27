@@ -4,6 +4,7 @@ experiments/
 outputs/
 metadata/
 .claude/
+pr_issues/
 
 sera/datagen/train/dataset_cache
 sera/datagen/train/wandb

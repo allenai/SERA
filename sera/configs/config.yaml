@@ -1,6 +1,4 @@
-# python sera/main.py stage=distill_stage_two name=testsweagentdjango
-
-# TODO: Move as much as can to defaults so this can be as slim as possible
+# python sera/main.py
 
 defaults:
   - sera

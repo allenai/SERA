@@ -83,13 +83,11 @@ class NoBugDataset(SyntheticDataset):
     def process_dataset(self):
         # Generate instances
         output_instances = []
-        # GROUP repos by last_name; same-name repos (different commits) will be run sequentially
         
         instances_to_process: List[RepositoryInstance] = []
         for repo in self.repos:
             instances_to_process += repo.instances
 
-        # print(json.dumps(name_groups, indent=2))
         with ThreadPoolExecutor(max_workers=32) as executor:
             futures = []
             for repo_instance_object in instances_to_process:

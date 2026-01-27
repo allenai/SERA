@@ -1,16 +1,3 @@
-#!/usr/bin/env python3
-"""
-Script to create and register a custom repository profile, then build its Docker image.
-
-Usage:
-    python create_custom_profile.py
-
-Interactive mode will prompt you for repository details.
-Or use command-line arguments:
-    python create_custom_profile.py --owner requests --repo requests \
-        --commit a0dcd4af --language python --install "pip install -e .[dev]"
-"""
-
 import argparse
 import contextlib
 import docker
@@ -47,7 +34,9 @@ LANGUAGE_PROFILES = {
 
 @contextlib.contextmanager                                                         
 def without_pyenv():                                                               
-    """Temporarily remove pyenv from environment."""                               
+    """
+    Temporarily remove pyenv from environment.
+    """                               
     old_env = os.environ.copy()                                                    
     try:                                                                           
         path_parts = os.environ.get("PATH", "").split(os.pathsep)                  
@@ -61,12 +50,7 @@ def without_pyenv():
 
 def parse_image_ref(image: str):
     """
-    Accepts forms like:
-      ubuntu:22.04
-      library/ubuntu:22.04
-      myuser/myrepo:tag
-      myuser/myrepo          (defaults tag=latest)
-    Returns (namespace, repo, tag).
+    Parses docker image name into (namespace, repo, tag).
     """
     image = image.strip()
 
@@ -119,21 +103,7 @@ def create_profile_class(
     python_version: Optional[str] = None,
 ) -> type[RepoProfile]:
     """
-    Create a RepoProfile class for the given repository.
-
-    Args:
-        owner: GitHub repository owner
-        repo: Repository name
-        commit: Full commit hash
-        language: Programming language (python, go, rust, javascript)
-        install_cmds: Optional list of installation commands
-        test_cmd: Optional test command override
-        org_dh: Optional Docker Hub organization (defaults to "swebench")
-        org_gh: Optional GitHub organization for mirror (defaults to "swesmith")
-        python_version: Optional Python version (Python only)
-
-    Returns:
-        A new RepoProfile subclass configured for the repository
+    Create a SWE-smith RepoProfile class for the given repository.
     """
     # Validate language
     language = language.lower()
@@ -203,19 +173,8 @@ def build_profile_image(
     package_name: str = None
 ) -> tuple[bool, Optional[str]]:
     """
-    Build Docker image for a profile.
-
-    Args:
-        profile: The RepoProfile instance
-        language: Programming language
-        create_mirror: Whether to create a GitHub mirror
-        push_image: Whether to push to Docker Hub
-        force: Force rebuild even if image exists
-
-    Returns:
-        (success: bool, error_message: Optional[str])
+    Build Docker image for a SWE-smith profile.
     """
-
     try:
         # Check if image already exists
         if not force:
@@ -313,7 +272,6 @@ def build_profile_image(
             print(f"Could not print debug info from {build_log_path}")
         return False, error_msg
 
-# TODO: This is not building a clean environment, on a failure artifacts are not cleaned up properly like the env
 def build_container(
     org_dh: str,
     org_gh: str,

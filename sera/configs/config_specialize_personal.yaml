@@ -17,44 +17,9 @@ sweagent_cfgs:
 generate:
   fns_per_repo: 3
   insts_per_fn: 1
-  # existing_repos:
-  #   - org_name: astropy
-  #     last_name: astropy
-  #     source: swebench # swebench | swesmith | None
-  #     instance_id: astropy__astropy-12907 # expected for swebench, leave as null for swesmith
-  #   - org_name: sqlfluff
-  #     last_name: sqlfluff
-  #     source: swesmith
-  #   - org_name: django
-  #     last_name: django
-  #     base_commit: eb16c7260
-  #     image_name: swebench/sweb.eval.x86_64.django_1776_django-11292
   personal_repos:
-    # - org_name: RAIVNLab
-    #   last_name: SuperposedDecoding
-    #   commits:
-    #     - 33d283e
-    #   install_cmds: 
-    #     - "pip install -r requirements.txt" # TODO: Test if this breaks without the quotations
-    #     - "python setup.py develop"
-    #   test_cmd: null
-    #   lookback: 1000
-    #   skip_package_name: 
-    #     - superposed
-    #   top_level_folder:
-    #     - superposed
-    # - org_name: SWE-agent
-    #   last_name: SWE-agent
-    #   commits: 
-    #     - 3ff833d957973f9483fb012371432662c8b33269
-    #   install_cmds: 
-    #     - "pip install -e ."
-    #   test_cmd: null
-    #   python_version: 3.11
-    #   top_level_folder:
-    #     - sweagent
-    - org_name: ethanlshen # TODO: This one messes up current repo dependencies somehow!
-      last_name: OpenHands-private
+    - org_name: OpenHands # TODO: This one messes up current repo dependencies somehow!
+      last_name: OpenHands
       commits: 
         - cc8b677f3ec324fb7b9de86229f727b25741a66c
       install_cmds: 

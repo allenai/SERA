@@ -24,7 +24,6 @@ MAP_TO_PARSER = {
     "hermes": transform_traj_hermes
 }
 
-# TODO: Explain this, or maybe provide a way around
 MAP_TO_SYSTEM_PROMPT = {
     "xml": XML_DEFAULT_SYSTEM_PROMPT,
     "hermes": HERMES_DEFAULT_SYSTEM_PROMPT
@@ -85,12 +84,12 @@ def get_raw_trajectories(traj_dir: Path, report: Dict, tool_call_format: str, ad
 
 def create_file_name(config: PostprocessConfig, traj_dir: Path, report_path: Path):
     report_path_name = report_path.stem if report_path else "noreport"
-    return "_".join([traj_dir.parent.name,
+    return "_".join([traj_dir.name,
                     report_path_name,
                     f"addthink-{config.add_think}",
                     f"atk-{config.add_train_key}",
                     f"rft-{bool(config.reformat_assistant_message) and config.tool_call_format == "hermes"}",
-                    f"format-{config.tool_call_format}"])
+                    f"format-{config.tool_call_format}"]) + ".jsonl"
 
 def format_and_save(
     config: PostprocessConfig,
