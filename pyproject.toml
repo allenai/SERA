@@ -11,11 +11,7 @@ dependencies = [
   "hydra-core==1.4.0.dev1",
   "omegaconf>=2.4.0.dev4",
   "anthropic==0.76.0",
-  "networkx==3.6.1",
-  "axolotl==0.12.0",
-  "axolotl[flash-attn,deepspeed]",
-  "cut-cross-entropy[transformers] @ git+https://github.com/axolotl-ai-cloud/ml-cross-entropy.git@631d646",
-  "deepspeed==0.15.4",
+  "networkx==3.6.1"
 ]
 
 [tool.setuptools]

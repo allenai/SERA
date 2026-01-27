@@ -67,7 +67,6 @@ agent:
       last_n_messages: 2
   model:
     name: openai/Qwen2.5-7B-Instruct
-    api_base: http://ceres-cs-aus-443.reviz.ai2.in:12193/v1
     api_key: not-needed
     per_instance_cost_limit: 0
     per_instance_call_limit: 115

@@ -106,6 +106,7 @@ class DistillRunner:
             temperature = self.config.sweagent_wrapper_config.temperature
             per_instance_call_limit = self.config.sweagent_wrapper_config.per_instance_call_limit
             model_name, model_api_base = self.model.model, self.model.url
+            print(model_name, model_api_base)
             if not model_name:
                 print(f"Multiturn with default in {self.cfg_fp}...")
                 cmd = f"sweagent run-batch --config {os.path.join("/", self.cfg_fp)} \
@@ -130,7 +131,8 @@ class DistillRunner:
                 --agent.model.per_instance_cost_limit {per_instance_cost_limit} \
                 --agent.model.total_cost_limit {total_cost_limit} \
                 --agent.model.temperature {temperature} \
-                --agent.model.per_instance_call_limit {per_instance_call_limit}"
+                --agent.model.per_instance_call_limit {per_instance_call_limit} \
+                --agent.model.api_key {os.getenv("ANTHROPIC_API_KEY")}"
             else:
                 print(f"Multiturn with {model_name} and {model_api_base}...")
                 if total_cost_limit != 0 or per_instance_cost_limit != 0:

@@ -68,7 +68,7 @@ agent:
       last_n_messages: 2
   model:
     name: openai/Qwen2.5-7B-Instruct
-    api_key: $ANTHROPIC_API_KEY
+    api_key: not-needed
     per_instance_cost_limit: 5
     per_instance_call_limit: 115
     total_cost_limit: 0.0

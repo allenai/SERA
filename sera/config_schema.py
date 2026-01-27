@@ -18,7 +18,7 @@ class SWEAgentWrapperConfig:
 class ModelConfig:
     """Configuration for a single model endpoint."""
     model: str = ""
-    url: str = ""
+    url: Optional[str] = ""
 
 @dataclass
 class PromptConfig:
@@ -100,15 +100,13 @@ class PostprocessConfig: # Postprocessing
     tool_call_format: str = "hermes"
     add_think: bool = False # Add <think> tags around any non-toolcall content
     add_train_key: bool = True # Add train key (for axolotl)
-    reformat_assistant_message: str = "keep_only_think" # empty | keep_only_think | keep_only_non_think
+    reformat_assistant_message: Optional[str] = "keep_only_think" # empty | keep_only_think | keep_only_non_think
     enforce_submit: bool = True
 
 @dataclass
 class SeraConfig:
     """Main configuration object for SERA datagen system."""
     stage: str = "pipeline"
-    rollout_one_sweagent_cfg: str = ""
-    rollout_two_sweagent_cfg: str = ""
     name: Optional[str] = None
     experiment_dir: str = "./experiments"
     metadata_dir: str = "./metadata"

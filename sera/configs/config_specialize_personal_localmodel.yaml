@@ -6,9 +6,7 @@ defaults:
   - sera
   - _self_
 
-rollout_one_sweagent_cfg: ???
-rollout_two_sweagent_cfg: ???
-name: generate_distill_superposed
+name: specialize_personal
 experiment_dir: ./experiments
 sweagent_cfgs:
   - e2e
@@ -18,9 +16,10 @@ generate:
   fns_per_repo: 3
   insts_per_fn: 1
   personal_repos:
-    - org_name: OpenHands # TODO: This one messes up current repo dependencies somehow!
+    - org_name: OpenHands
       last_name: OpenHands
       commits: 
+        - 29b77be807e0e6aab380d953c0d79a166df4f0cc
         - cc8b677f3ec324fb7b9de86229f727b25741a66c
       install_cmds: 
         - "pip install -e ."
@@ -30,22 +29,18 @@ generate:
         - openhands
   repo_parent_dir: ./repos
   docker:
-    docker_org: alleninstituteforai
-    gh_mirror_org: oca-repos
+    docker_org: null # Check README for how to create a Docker org to push images to
+    gh_mirror_org: null # Check README for how to create a Github mirror organization for repositories
 
 distill:
   shard: 0
   models:
   - model: openai/GLM-4.5-Air
-    url: http://jupiter-cs-aus-102.reviz.ai2.in:24446/v1
-  - model: openai/Qwen3-32B
-    url: http://jupiter-cs-aus-156.reviz.ai2.in:23333/v1
+    url: # YOUR SERVER URL
   stage_one_config_name: e2e
   stage_two_config_name: qwen
   sweagent_wrapper_config:
     num_workers: 24
-  args:
-    pipeline_repo: sera/datagen/data/metadata/test_custom_prs.jsonl
 
 postprocess:
   tool_call_format: hermes

@@ -64,6 +64,10 @@ def pp_regex(text, re_string=r"<output>(.*?)</output>"):
 def pp_query(system, prompt, model, base_url="", api_key="", max_tokens=4096, retries=0, args={}):
     # Create OpenAI-compatible client
     # Slice openai if it starts with
+    if model.startswith("anthropic/"):
+        model = model[len("anthropic/"):]
+        base_url = "https://api.anthropic.com/v1/"
+        api_key = os.getenv("ANTHROPIC_API_KEY")
     if base_url != "":
         client = OpenAI(
             base_url=base_url,
