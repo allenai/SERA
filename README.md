@@ -1,5 +1,5 @@
 
-Note: Expect many helpful updates in the next few days as we improve the codebase and clean up the pipeline!
+Note: This codebase is **_in progress_**. Expect many helpful updates in the next few days as we improve the codebase and clean up the pipeline!
 
 Use SERA models directly in Claude Code: https://github.com/allenai/sera-cli.
 
