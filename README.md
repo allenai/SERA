@@ -2,6 +2,8 @@
 
 Test SERA in Claude Code for Free: https://github.com/allenai/sera-cli.
 
+Technical Report: https://allenai.org/papers/opencodingagents
+
 # Installation
 
 Clone the repository locally, and then set up the environment.
