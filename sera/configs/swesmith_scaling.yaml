@@ -1,0 +1,395 @@
+# USAGE: python sera/main.py --config-name config_specialize_sweb stage=pipeline name=test
+
+defaults:
+  - sera
+  - _self_
+
+name: scale_swesmith
+
+generate:
+  fns_per_repo: 10000
+  insts_per_fn: 1
+  existing_repos:
+  - org_name: conan-io # SWE-smith is one container per codebase, so we do not need to specify instance id like in `specialization_sympy.yaml`
+    last_name: conan
+    source: swesmith
+  - org_name: cookiecutter
+    last_name: cookiecutter
+    source: swesmith
+  - org_name: cool-RR
+    last_name: PySnooper
+    source: swesmith
+  - org_name: dask
+    last_name: dask
+    source: swesmith
+  - org_name: davidhalter
+    last_name: parso
+    source: swesmith
+  - org_name: django-money
+    last_name: django-money
+    source: swesmith
+  - org_name: django
+    last_name: channels
+    source: swesmith
+  - org_name: django
+    last_name: daphne
+    source: swesmith
+  - org_name: encode
+    last_name: starlette
+    source: swesmith
+  - org_name: erikrose
+    last_name: parsimonious
+    source: swesmith
+  - org_name: buriy
+    last_name: python-readability
+    source: swesmith
+  - org_name: burnash
+    last_name: gspread
+    source: swesmith
+  - org_name: cantools
+    last_name: cantools
+    source: swesmith
+  - org_name: chardet
+    last_name: chardet
+    source: swesmith
+  - org_name: cknd
+    last_name: stackprinter
+    source: swesmith
+  - org_name: cloudpipe
+    last_name: cloudpickle
+    source: swesmith
+  - org_name: Cog-Creators
+    last_name: Red-DiscordBot
+    source: swesmith
+  - org_name: pandas-dev
+    last_name: pandas
+    source: swesmith
+  - org_name: marshmallow-code
+    last_name: marshmallow
+    source: swesmith
+  - org_name: adrienverge
+    last_name: yamllint
+    source: swesmith
+  - org_name: arrow-py
+    last_name: arrow
+    source: swesmith
+  - org_name: andialbrecht
+    last_name: sqlparse
+    source: swesmith
+  - org_name: amueller
+    last_name: word_cloud
+    source: swesmith
+  - org_name: alecthomas
+    last_name: voluptuous
+    source: swesmith
+  - org_name: alanjds
+    last_name: drf-nested-routers
+    source: swesmith
+  - org_name: benoitc
+    last_name: gunicorn
+    source: swesmith
+  - org_name: sunpy
+    last_name: sunpy
+    source: swesmith
+  - org_name: mahmoud
+    last_name: glom
+    source: swesmith
+  - org_name: weaveworks
+    last_name: grafanalib
+    source: swesmith
+  - org_name: sloria
+    last_name: environs
+    source: swesmith
+  - org_name: python-trio
+    last_name: trio
+    source: swesmith
+  - org_name: kurtmckee
+    last_name: feedparser
+    source: swesmith
+  - org_name: un33k
+    last_name: python-slugify
+    source: swesmith
+  - org_name: agronholm
+    last_name: typeguard
+    source: swesmith
+  - org_name: tornadoweb
+    last_name: tornado
+    source: swesmith
+  - org_name: facebookresearch
+    last_name: fvcore
+    source: swesmith
+  - org_name: mido
+    last_name: mido
+    source: swesmith
+  - org_name: dbader
+    last_name: schedule
+    source: swesmith
+  - org_name: hukkin
+    last_name: tomli
+    source: swesmith
+  - org_name: tox-dev
+    last_name: pipdeptree
+    source: swesmith
+  - org_name: tweepy
+    last_name: tweepy
+    source: swesmith
+  - org_name: gawel
+    last_name: pyquery
+    source: swesmith
+  - org_name: python-openxml
+    last_name: python-docx
+    source: swesmith
+  - org_name: jaraco
+    last_name: inflect
+    source: swesmith
+  - org_name: scanny
+    last_name: python-pptx
+    source: swesmith
+  - org_name: theskumar
+    last_name: python-dotenv
+    source: swesmith
+  - org_name: pndurette
+    last_name: gtts
+    source: swesmith
+  - org_name: PyCQA
+    last_name: flake8
+    source: swesmith
+  - org_name: pallets
+    last_name: markupsafe
+    source: swesmith
+  - org_name: pyutils
+    last_name: line_profiler
+    source: swesmith
+  - org_name: keleshev
+    last_name: schema
+    source: swesmith
+  - org_name: gruns
+    last_name: icecream
+    source: swesmith
+  - org_name: pallets
+    last_name: click
+    source: swesmith
+  - org_name: jsvine
+    last_name: pdfplumber
+    source: swesmith
+  - org_name: marshmallow-code
+    last_name: webargs
+    source: swesmith
+  - org_name: pyupio
+    last_name: safety
+    source: swesmith
+  - org_name: pyca
+    last_name: pyopenssl
+    source: swesmith
+  - org_name: datamade
+    last_name: usaddress
+    source: swesmith
+  - org_name: mozilla
+    last_name: bleach
+    source: swesmith
+  - org_name: borntyping
+    last_name: python-colorlog
+    source: swesmith
+  - org_name: spulec
+    last_name: freezegun
+    source: swesmith
+  - org_name: tobymao
+    last_name: sqlglot
+    source: swesmith
+  - org_name: Knio
+    last_name: dominate
+    source: swesmith
+  - org_name: pallets
+    last_name: jinja
+    source: swesmith
+  - org_name: python-jsonschema
+    last_name: jsonschema
+    source: swesmith
+  - org_name: mewwts
+    last_name: addict
+    source: swesmith
+  - org_name: pydicom
+    last_name: pydicom
+    source: swesmith
+  - org_name: luozhouyang
+    last_name: python-string-similarity
+    source: swesmith
+  - org_name: getnikola
+    last_name: nikola
+    source: swesmith
+  - org_name: rubik
+    last_name: radon
+    source: swesmith
+  - org_name: modin-project
+    last_name: modin
+    source: swesmith
+  - org_name: rustedpy
+    last_name: result
+    source: swesmith
+  - org_name: mahmoud
+    last_name: boltons
+    source: swesmith
+  - org_name: facelessuser
+    last_name: soupsieve
+    source: swesmith
+  - org_name: pydantic
+    last_name: pydantic
+    source: swesmith
+  - org_name: pygments
+    last_name: pygments
+    source: swesmith
+  - org_name: pexpect
+    last_name: ptyprocess
+    source: swesmith
+  - org_name: pydata
+    last_name: patsy
+    source: swesmith
+  - org_name: matthewwithanm
+    last_name: python-markdownify
+    source: swesmith
+  - org_name: mozillazg
+    last_name: python-pinyin
+    source: swesmith
+  - org_name: google
+    last_name: textfsm
+    source: swesmith
+  - org_name: pytest-dev
+    last_name: iniconfig
+    source: swesmith
+  - org_name: oauthlib
+    last_name: oauthlib
+    source: swesmith
+  - org_name: lepture
+    last_name: mistune
+    source: swesmith
+  - org_name: pwaller
+    last_name: pyfiglet
+    source: swesmith
+  - org_name: jd
+    last_name: tenacity
+    source: swesmith
+  - org_name: gruns
+    last_name: furl
+    source: swesmith
+  - org_name: Project-MONAI
+    last_name: MONAI
+    source: swesmith
+  - org_name: msiemens
+    last_name: tinydb
+    source: swesmith
+  - org_name: prettytable
+    last_name: prettytable
+    source: swesmith
+  - org_name: lincolnloop
+    last_name: python-qrcode
+    source: swesmith
+  - org_name: jawah
+    last_name: charset_normalizer
+    source: swesmith
+  - org_name: python-hyper
+    last_name: h11
+    source: swesmith
+  - org_name: madzak
+    last_name: python-json-logger
+    source: swesmith
+  - org_name: graphql-python
+    last_name: graphene
+    source: swesmith
+  - org_name: HIPS
+    last_name: autograd
+    source: swesmith
+  - org_name: kayak
+    last_name: pypika
+    source: swesmith
+  - org_name: scrapy
+    last_name: scrapy
+    source: swesmith
+  - org_name: seatgeek
+    last_name: thefuzz
+    source: swesmith
+  - org_name: marshmallow-code
+    last_name: apispec
+    source: swesmith
+  - org_name: seperman
+    last_name: deepdiff
+    source: swesmith
+  - org_name: pyasn1
+    last_name: pyasn1
+    source: swesmith
+  - org_name: john-kurkowski
+    last_name: tldextract
+    source: swesmith
+  - org_name: joke2k
+    last_name: faker
+    source: swesmith
+  - org_name: iterative
+    last_name: dvc
+    source: swesmith
+  - org_name: agronholm
+    last_name: exceptiongroup
+    source: swesmith
+  - org_name: Mimino666
+    last_name: langdetect
+    source: swesmith
+  - org_name: sqlfluff
+    last_name: sqlfluff
+    source: swesmith
+  - org_name: gweis
+    last_name: isodate
+    source: swesmith
+  - org_name: termcolor
+    last_name: termcolor
+    source: swesmith
+  - org_name: rsalmei
+    last_name: alive-progress
+    source: swesmith
+  - org_name: facebookresearch
+    last_name: hydra
+    source: swesmith
+  - org_name: pylint-dev
+    last_name: astroid
+    source: swesmith
+  - org_name: pyparsing
+    last_name: pyparsing
+    source: swesmith
+  - org_name: life4
+    last_name: textdistance
+    source: swesmith
+  - org_name: paramiko
+    last_name: paramiko
+    source: swesmith
+  - org_name: tkrajina
+    last_name: gpxpy
+    source: swesmith
+  - org_name: python
+    last_name: mypy
+    source: swesmith
+  - org_name: vi3k6i5
+    last_name: flashtext
+    source: swesmith
+  - org_name: pudo
+    last_name: dataset
+    source: swesmith
+
+distill:
+  models:
+  - model: openai/GLM-4.5-Air
+    url: null # <--- FILL IN
+  - model: openai/GLM-4.5-Air
+    url: null # <--- FILL IN
+  - model: openai/GLM-4.5-Air
+    url: null # <--- FILL IN
+  - model: openai/GLM-4.5-Air
+    url: null # <--- FILL IN
+  sweagent_wrapper_config:
+    num_workers: 24
+
+postprocess:
+  tool_call_format: hermes
+  add_think: false # Makes sense to set True if distilling from anthropic, which does not have <think> tokens
+  add_train_key: true
+  enforce_submit: true
+  reformat_assistant_message: keep_only_think
+
+eval:
+  compare_patch_threshold: 0.0

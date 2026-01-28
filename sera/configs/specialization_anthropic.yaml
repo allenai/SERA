@@ -7,13 +7,9 @@ defaults:
   - _self_
 
 name: specialize_personal
-experiment_dir: ./experiments
-sweagent_cfgs:
-  - e2e
-  - qwen
 
 generate:
-  fns_per_repo: 3
+  fns_per_repo: 5000
   insts_per_fn: 1
   personal_repos:
     - org_name: OpenHands
@@ -27,27 +23,35 @@ generate:
       python_version: 3.12
       top_level_folder:
         - openhands
-  repo_parent_dir: ./repos
-  docker:
-    docker_org: null # Check README for how to create a Docker org to push images to
-    gh_mirror_org: null # Check README for how to create a Github mirror organization for repositories
+    - org_name: R2E-Gym
+      last_name: R2E-Gym
+      install_cmds: 
+        - "pip install -e ."
+      # NOTE: You can leave top_level_folder blank for your specific repository and 
+      # we will try to automatically identify it, throwing an error on failure
+
+      # NOTE: If commits aren't specified, we automatically "lookback" for 365 days and choose
+      # five equally spaced commits in that time frame to create containers on.
 
 distill:
-  shard: 0
   models:
   - model: anthropic/claude-sonnet-4-20250514
-    url: null
-  stage_one_config_name: e2e
-  stage_two_config_name: qwen
+    url: null # <-- LEAVE EMPTY
+  - model: anthropic/claude-sonnet-4-20250514
+    url: null # <-- LEAVE EMPTY
+  - model: anthropic/claude-sonnet-4-20250514
+    url: null # <-- LEAVE EMPTY
+  - model: anthropic/claude-sonnet-4-20250514
+    url: null # <-- LEAVE EMPTY
   sweagent_wrapper_config:
     num_workers: 24
 
 postprocess:
   tool_call_format: hermes
-  add_think: true # Add <think> around the anthropic reasoning traces
+  add_think: false
   add_train_key: true
   enforce_submit: true
-  reformat_assistant_message: null
+  reformat_assistant_message: keep_only_think
 
 eval:
   compare_patch_threshold: 0.5

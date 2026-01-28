@@ -1,0 +1,60 @@
+# USAGE: python sera/main.py --config-name config_specialize_sweb stage=pipeline name=test
+
+# TODO: Move as much as can to defaults so this can be as slim as possible
+
+defaults:
+  - sera
+  - _self_
+
+name: specialize_django
+
+generate:
+  fns_per_repo: 10000
+  insts_per_fn: 1
+  existing_repos:
+    - org_name: django # For swebench, pass in the instance_id so it can pull the container.
+      last_name: django
+      source: swebench
+      instance_id: django__django-7530
+    - org_name: django 
+      last_name: django
+      source: swebench
+      instance_id: django__django-12308 
+    - org_name: django 
+      last_name: django
+      source: swebench
+      instance_id: django__django-13925 
+    - org_name: django 
+      last_name: django
+      source: swebench
+      instance_id: django__django-15252 
+    - org_name: django 
+      last_name: django
+      source: swebench
+      instance_id: django__django-16485 
+    - org_name: django 
+      last_name: django
+      source: swebench
+      instance_id: django__django-17084 
+
+distill:
+  models:
+  - model: openai/GLM-4.5-Air
+    url: null # <--- FILL IN
+  - model: openai/GLM-4.5-Air
+    url: null # <--- FILL IN
+  - model: openai/GLM-4.5-Air
+    url: null # <--- FILL IN
+  - model: openai/GLM-4.5-Air
+    url: null # <--- FILL IN
+  sweagent_wrapper_config:
+    num_workers: 24
+
+postprocess:
+  tool_call_format: hermes
+  add_think: false # Set to true if using anthropic
+  add_train_key: true
+  enforce_submit: true
+
+eval:
+  compare_patch_threshold: 0.5

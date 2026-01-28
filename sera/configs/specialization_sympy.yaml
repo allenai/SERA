@@ -1,0 +1,58 @@
+# USAGE: python sera/main.py --config-name config_specialize_sweb stage=pipeline name=test
+
+defaults:
+  - sera
+  - _self_
+
+name: specialize_sympy
+
+generate:
+  fns_per_repo: 10000
+  insts_per_fn: 1
+  existing_repos:
+    - org_name: sympy # For swebench, pass in the instance_id so it can pull the container.
+      last_name: sympy
+      source: swebench
+      instance_id: sympy__sympy-11618
+    - org_name: sympy 
+      last_name: sympy
+      source: swebench
+      instance_id: sympy__sympy-13878 
+    - org_name: sympy 
+      last_name: sympy
+      source: swebench
+      instance_id: sympy__sympy-16597 
+    - org_name: sympy 
+      last_name: sympy
+      source: swebench
+      instance_id: sympy__sympy-19346 
+    - org_name: sympy 
+      last_name: sympy
+      source: swebench
+      instance_id: sympy__sympy-21930 
+    - org_name: sympy 
+      last_name: sympy
+      source: swebench
+      instance_id: sympy__sympy-24661 
+
+distill:
+  models:
+  - model: openai/GLM-4.5-Air
+    url: null # <--- FILL IN
+  - model: openai/GLM-4.5-Air
+    url: null # <--- FILL IN
+  - model: openai/GLM-4.5-Air
+    url: null # <--- FILL IN
+  - model: openai/GLM-4.5-Air
+    url: null # <--- FILL IN
+  sweagent_wrapper_config:
+    num_workers: 24
+
+postprocess:
+  tool_call_format: hermes
+  add_think: false # Set to true if using anthropic
+  add_train_key: true
+  enforce_submit: true
+
+eval:
+  compare_patch_threshold: 0.5
