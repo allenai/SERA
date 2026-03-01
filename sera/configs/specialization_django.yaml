@@ -20,22 +20,22 @@ generate:
       last_name: django
       source: swebench
       instance_id: django__django-12308 
-    # - org_name: django 
-    #   last_name: django
-    #   source: swebench
-    #   instance_id: django__django-13925 
-    # - org_name: django 
-    #   last_name: django
-    #   source: swebench
-    #   instance_id: django__django-15252 
-    # - org_name: django 
-    #   last_name: django
-    #   source: swebench
-    #   instance_id: django__django-16485 
-    # - org_name: django 
-    #   last_name: django
-    #   source: swebench
-    #   instance_id: django__django-17084 
+    - org_name: django 
+      last_name: django
+      source: swebench
+      instance_id: django__django-13925 
+    - org_name: django 
+      last_name: django
+      source: swebench
+      instance_id: django__django-15252 
+    - org_name: django 
+      last_name: django
+      source: swebench
+      instance_id: django__django-16485 
+    - org_name: django 
+      last_name: django
+      source: swebench
+      instance_id: django__django-17084 
 
 distill:
   model:
