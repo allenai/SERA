@@ -10,11 +10,16 @@ Clone the repository locally, and then set up the environment.
 
 With pip:
 ```
+git clone --recurse-submodules https://github.com/allenai/SERA.git
+cd SERA
 conda create -n sera python=3.12
-pip install -e . -e modules/code2flow -e modules/SWE-agent 
+conda activate sera
+pip install -e . -e modules/code2flow -e modules/SERA-SWE-agent 
 ```
 
 # Generation
+
+[The full configuration reference](#full-configuration-reference) expands on the examples below.
 
 ## Inference Servers
 
@@ -168,7 +173,7 @@ This list can then be passed into a run as:
 distill.args.pipeline_repo=GENERATED_PATH
 ```
 
-# Configuration Reference
+# Full Configuration Reference
 
 All settings are defined as dataclasses in [sera/config_schema.py](sera/config_schema.py) and can be overridden via the command line using OmegaConf dot notation. For example:
 ```
@@ -314,7 +319,7 @@ See the README.md in [sera/datagen/train](sera/datagen/train).
 
 # Citation
 ```
-@misc{shen2026serasoftverifiedefficientrepository,
+@misc{shen2026sera,
       title={SERA: Soft-Verified Efficient Repository Agents}, 
       author={Ethan Shen and Danny Tormoen and Saurabh Shah and Ali Farhadi and Tim Dettmers},
       year={2026},
