@@ -1,4 +1,4 @@
 [submodule "modules/SERA-SWE-Agent"]
 	path = modules/SERA-SWE-Agent
-	url = https://github.com/ethanlshen/SERA-SWE-agent
+	url = https://github.com/allenai/SERA-SWE-agent
 	branch = main
