@@ -37,6 +37,7 @@ def get_dataset_shard(instances_fp, shard, total_shards):
 class DistillRunner:
 
     def __init__(self, config: DistillConfig, folder: ExperimentFolder, instances_fp: Path, cfg_fp: Path, args={}):
+        print(instances_fp, cfg_fp)
         assert instances_fp.exists() and cfg_fp.exists()
         self.config = config
         self.cfg_fp = str(cfg_fp)
@@ -62,7 +63,8 @@ class DistillRunner:
     @property
     def name(self):
         if self.shard:
-            name = "_".join([self.run_title, 
+            name = "_".join([self.run_title,
+                            self.config.agent_harness,
                             self.cfg_name,
                             self.model.name,
                             f"{self.shard}-{self.total_shards}",
@@ -71,7 +73,8 @@ class DistillRunner:
                             f"mcost{self.config.sweagent_wrapper_config.per_instance_cost_limit}",
                             f"mtcost{self.config.sweagent_wrapper_config.total_cost_limit}",])
         else:
-            name = "_".join([self.run_title, 
+            name = "_".join([self.run_title,
+                            self.config.agent_harness,
                             self.model.name,
                             self.cfg_name,
                             f"t{self.config.sweagent_wrapper_config.temperature}",
@@ -84,6 +87,71 @@ class DistillRunner:
     @property
     def output_dir(self):
         return self.folder.traj_dir / self.name
+
+    def _build_sweagent_cmd(self, output_dir, num_workers, model_name, model_api_base,
+                            per_instance_cost_limit, total_cost_limit, temperature, per_instance_call_limit):
+        """Build the sweagent run-batch CLI command."""
+        if not model_name:
+            print(f"Multiturn with default in {self.cfg_fp}...")
+            cmd = f"sweagent run-batch --config {os.path.join('/', self.cfg_fp)} \
+            --num_workers {num_workers} \
+            --instances.type file \
+            --instances.path {self.instances_fp} \
+            --instances.shuffle True \
+            --output_dir {output_dir} \
+            --agent.model.per_instance_cost_limit {per_instance_cost_limit} \
+            --agent.model.total_cost_limit {total_cost_limit} \
+            --agent.model.temperature {temperature} \
+            --agent.model.per_instance_call_limit {per_instance_call_limit}"
+        elif model_name and not model_api_base:
+            print(f"Multiturn with default in {self.cfg_fp} with {model_name}...")
+            cmd = f"sweagent run-batch --config {os.path.join('/', self.cfg_fp)} \
+            --num_workers {num_workers} \
+            --instances.type file \
+            --instances.path {self.instances_fp} \
+            --agent.model.name {model_name} \
+            --instances.shuffle True \
+            --output_dir {output_dir} \
+            --agent.model.per_instance_cost_limit {per_instance_cost_limit} \
+            --agent.model.total_cost_limit {total_cost_limit} \
+            --agent.model.temperature {temperature} \
+            --agent.model.per_instance_call_limit {per_instance_call_limit} \
+            --agent.model.api_key {os.getenv('ANTHROPIC_API_KEY')}"
+        else:
+            print(f"Multiturn with {model_name} and {model_api_base}...")
+            if total_cost_limit != 0 or per_instance_cost_limit != 0:
+                print("If your model is not mapped in litellm, then set the costs to 0.0 or else there will be an error")
+            cmd = f"sweagent run-batch --config {os.path.join('/', self.cfg_fp)} \
+            --num_workers {num_workers} \
+            --instances.type file \
+            --instances.path {self.instances_fp} \
+            --instances.shuffle True \
+            --output_dir {output_dir} \
+            --agent.model.api_base {model_api_base} \
+            --agent.model.name {model_name} \
+            --agent.model.per_instance_cost_limit {per_instance_cost_limit} \
+            --agent.model.total_cost_limit {total_cost_limit} \
+            --agent.model.temperature {temperature} \
+            --agent.model.per_instance_call_limit {per_instance_call_limit}"
+        return cmd
+
+    def _build_mini_swe_agent_cmd(self, output_dir, num_workers, model_name, model_api_base,
+                                   per_instance_cost_limit, total_cost_limit, temperature, per_instance_call_limit):
+        """Build the mini-swe-agent swebench CLI command."""
+        print(f"mini-swe-agent with {model_name or 'default'} and config {self.cfg_fp}...")
+        cmd = f"python -m minisweagent.run.benchmarks.swebench \
+        -c {self.cfg_fp} \
+        --instances-file {self.instances_fp} \
+        --shuffle \
+        -o {output_dir} \
+        -w {num_workers}"
+        if model_name:
+            cmd += f" -m {model_name}"
+        # mini-swe-agent uses config-level cost/step limits, so pass via -c overrides
+        cmd += f" -c agent.step_limit={per_instance_call_limit}"
+        cmd += f" -c agent.cost_limit={per_instance_cost_limit}"
+        cmd += f" -c model.model_kwargs.temperature={temperature}"
+        return cmd
 
     def run(self):
         """
@@ -99,51 +167,26 @@ class DistillRunner:
             per_instance_call_limit = self.config.sweagent_wrapper_config.per_instance_call_limit
             model_name, model_api_base = self.model.name, self.model.url
             print(model_name, model_api_base)
-            if not model_name:
-                print(f"Multiturn with default in {self.cfg_fp}...")
-                cmd = f"sweagent run-batch --config {os.path.join("/", self.cfg_fp)} \
-                --num_workers {num_workers} \
-                --instances.type file \
-                --instances.path {self.instances_fp} \
-                --instances.shuffle True \
-                --output_dir {output_dir} \
-                --agent.model.per_instance_cost_limit {per_instance_cost_limit} \
-                --agent.model.total_cost_limit {total_cost_limit} \
-                --agent.model.temperature {temperature} \
-                --agent.model.per_instance_call_limit {per_instance_call_limit}"
-            elif model_name and not model_api_base:
-                print(f"Multiturn with default in {self.cfg_fp} with {model_name}...") # TODO: Say in configs what models are auto support by sweagent for this
-                cmd = f"sweagent run-batch --config {os.path.join("/", self.cfg_fp)} \
-                --num_workers {num_workers} \
-                --instances.type file \
-                --instances.path {self.instances_fp} \
-                --agent.model.name {model_name} \
-                --instances.shuffle True \
-                --output_dir {output_dir} \
-                --agent.model.per_instance_cost_limit {per_instance_cost_limit} \
-                --agent.model.total_cost_limit {total_cost_limit} \
-                --agent.model.temperature {temperature} \
-                --agent.model.per_instance_call_limit {per_instance_call_limit} \
-                --agent.model.api_key {os.getenv("ANTHROPIC_API_KEY")}"
+
+            agent_harness = getattr(self.config, "agent_harness", "sweagent")
+            if agent_harness == "mini-swe-agent":
+                cmd = self._build_mini_swe_agent_cmd(
+                    output_dir, num_workers, model_name, model_api_base,
+                    per_instance_cost_limit, total_cost_limit, temperature, per_instance_call_limit,
+                )
             else:
-                print(f"Multiturn with {model_name} and {model_api_base}...")
-                if total_cost_limit != 0 or per_instance_cost_limit != 0:
-                    print("If your model is not mapped in litellm, then set the costs to 0.0 or else there will be an error")
-                cmd = f"sweagent run-batch --config {os.path.join("/", self.cfg_fp)} \
-                --num_workers {num_workers} \
-                --instances.type file \
-                --instances.path {self.instances_fp} \
-                --instances.shuffle True \
-                --output_dir {output_dir} \
-                --agent.model.api_base {model_api_base} \
-                --agent.model.name {model_name} \
-                --agent.model.per_instance_cost_limit {per_instance_cost_limit} \
-                --agent.model.total_cost_limit {total_cost_limit} \
-                --agent.model.temperature {temperature} \
-                --agent.model.per_instance_call_limit {per_instance_call_limit}"
+                cmd = self._build_sweagent_cmd(
+                    output_dir, num_workers, model_name, model_api_base,
+                    per_instance_cost_limit, total_cost_limit, temperature, per_instance_call_limit,
+                )
 
             for key, value in self.args.items():
-                cmd = cmd + f" --{key} {value}"
+                if isinstance(value, bool):
+                    if value:
+                        cmd = cmd + f" --{key}"
+                else:
+                    cmd = cmd + f" --{key} {value}"
+            print(f"Agent Launch: {cmd}")
             subprocess.run(cmd.split())
         except Exception as e:
             print(e)

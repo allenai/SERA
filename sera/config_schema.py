@@ -128,6 +128,8 @@ class DistillConfig:
     stage_one_config_name: str = "e2e"
     # Sweagent config for rollout two to use. Should be included in SeraConfig.sweagent_cfgs
     stage_two_config_name: str = "qwen"
+    # Agent harness to use: "sweagent" for SERA-SWE-Agent, "mini-swe-agent" for mini-swe-agent
+    agent_harness: str = "sweagent"
 
 @dataclass
 class EvalConfig:

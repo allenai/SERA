@@ -253,6 +253,7 @@ class SyntheticInstance:
     repo: RepositoryInstance # SET TO NONE WHEN CONVERTING TO JSON INSTANCE
     start_fn: str
     start_fn_file: str
+    working_dir: str = "testbed"
 
 # Abstract class for synthetic datasets
 class SyntheticDataset(ABC):
