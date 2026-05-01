@@ -38,6 +38,11 @@ GLM 4.5-Air Trajectories (139000 Samples):
 GLM 4.5-Air Specialized Trajectories (132000 Samples from Django, Sympy, Sphinx):
 - https://huggingface.co/collections/allenai/open-coding-agents-specialization
 
+# Training
+
+See the README.md in [sera/datagen/train](sera/datagen/train).
+
+
 # Generation
 
 [The full configuration reference](#full-configuration-reference) expands on the examples below.
@@ -343,11 +348,6 @@ python sera/main.py \
     postprocess.add_think=false \
     postprocess.enforce_submit=true
 ```
-
-# Training
-
-See the README.md in [sera/datagen/train](sera/datagen/train).
-
 # Citation
 ```
 @misc{shen2026sera,
