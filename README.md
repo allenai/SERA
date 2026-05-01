@@ -23,6 +23,21 @@ conda activate sera
 pip install -e . -e modules/code2flow -e modules/SERA-SWE-Agent -e modules/SERA-mini-swe-agent
 ```
 
+# Existing Datasets
+Best Subset (48000 Samples): https://huggingface.co/datasets/allenai/SERA-4.6-Lite-Best-Subset
+- 48000 sample dataset of GLM 4.6 trajectories that result in SoTA 51.7% on SWE-Bench Verified at 32K context for 32B models.
+
+GLM 4.6 Trajectories (72000 Samples):
+- https://huggingface.co/datasets/allenai/Sera-4.6-Lite-T1 (36000)
+- https://huggingface.co/datasets/allenai/Sera-4.6-Lite-T2 (36000)
+
+GLM 4.5-Air Trajectories (139000 Samples):
+- https://huggingface.co/datasets/allenai/Sera-4.5A-Full-T1 (72000)
+- https://huggingface.co/datasets/allenai/Sera-4.5A-Full-T2 (66000)
+
+GLM 4.5-Air Specialized Trajectories (132000 Samples from Django, Sympy, Sphinx):
+- https://huggingface.co/collections/allenai/open-coding-agents-specialization
+
 # Generation
 
 [The full configuration reference](#full-configuration-reference) expands on the examples below.
