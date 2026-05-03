@@ -13,5 +13,6 @@ Axolotl will add a `_checkpoint_wrapped_module` prefix to weight names in the st
 Some gotchas during training are, which we handle in this repository are:
 - Making sure that the correct system prompt is added into the training data. axolotl does _not_ automatically apply chat templates, so we manually add the system prompt including the tools when we postprocess our data.
 - Making sure that the model only trains on assistant turns (which we control using a train key we add in postprocessing)
+- Axolotl adds its own chat_template at the end of training and rewrites the tokenizer_config.json file. **This should be deleted and the original tokenizer_config.json copied over** because Qwen3 includes its chat template in the tokenizer_config. This step WILL break inference if not followed.
 
 If using alternative models, make sure that these requirements are satisfied.
