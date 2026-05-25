@@ -1,0 +1,29 @@
+{
+  "source": "dpv_nopack_cce_20step",
+  "experiment": "01KSFF6ZN14E89VCQ87SRYQE61",
+  "model": "Qwen/Qwen3-8B",
+  "description": "DualPipeV nopack with unpad/repad + CCE loss, Axolotl-converted data, seed=42",
+  "total_steps": 20,
+  "steps": [
+    {"step": 1, "loss": 0.5814, "grad_norm": 14.0785, "raw_grad_norm": 14.0785},
+    {"step": 2, "loss": 0.5560, "grad_norm": 13.8641, "raw_grad_norm": 13.8641},
+    {"step": 3, "loss": 0.5903, "grad_norm": 14.6308, "raw_grad_norm": 14.6308},
+    {"step": 4, "loss": 0.5384, "grad_norm": 12.8951, "raw_grad_norm": 12.8951},
+    {"step": 5, "loss": 0.5636, "grad_norm": 13.3205, "raw_grad_norm": 13.3205},
+    {"step": 6, "loss": 0.5829, "grad_norm": 13.1181, "raw_grad_norm": 13.1181},
+    {"step": 7, "loss": 0.5705, "grad_norm": 13.6181, "raw_grad_norm": 13.6181},
+    {"step": 8, "loss": 0.5263, "grad_norm": 12.058, "raw_grad_norm": 12.058},
+    {"step": 9, "loss": 0.5367, "grad_norm": 11.9614, "raw_grad_norm": 11.9614},
+    {"step": 10, "loss": 0.5471, "grad_norm": 11.5852, "raw_grad_norm": 11.5852},
+    {"step": 11, "loss": 0.5466, "grad_norm": 11.1491, "raw_grad_norm": 11.1491},
+    {"step": 12, "loss": 0.5041, "grad_norm": 8.1784, "raw_grad_norm": 8.1784},
+    {"step": 13, "loss": 0.4990, "grad_norm": 8.1179, "raw_grad_norm": 8.1179},
+    {"step": 14, "loss": 0.4866, "grad_norm": 6.359, "raw_grad_norm": 6.359},
+    {"step": 15, "loss": 0.4672, "grad_norm": 6.1022, "raw_grad_norm": 6.1022},
+    {"step": 16, "loss": 0.4680, "grad_norm": 4.8155, "raw_grad_norm": 4.8155},
+    {"step": 17, "loss": 0.4405, "grad_norm": 4.0038, "raw_grad_norm": 4.0038},
+    {"step": 18, "loss": 0.4366, "grad_norm": 3.3617, "raw_grad_norm": 3.3617},
+    {"step": 19, "loss": 0.4391, "grad_norm": 2.9528, "raw_grad_norm": 2.9528},
+    {"step": 20, "loss": 0.4354, "grad_norm": 2.4665, "raw_grad_norm": 2.4665}
+  ]
+}
