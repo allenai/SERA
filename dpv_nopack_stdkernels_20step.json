@@ -1,0 +1,39 @@
+{
+  "experiment": "DPV nopack + standard PyTorch kernels (no bitsandbytes CUDA kernels)",
+  "beaker_id": "01KSFTEGVEFSFPN3R7Y6J90GGE",
+  "model": "Qwen/Qwen3-8B",
+  "data": "sera_ethan_16k_axolotl_nopack.pt",
+  "config": {
+    "seq_len": 32768,
+    "grad_accum": 32,
+    "lr": 1e-5,
+    "warmup_steps": 48,
+    "max_grad_norm": 1.0,
+    "seed": 42,
+    "no_pack": true,
+    "cpu_offload": true,
+    "patches": ["rmsnorm->PyTorch", "rope->PyTorch", "swiglu->PyTorch", "chunked_flash_attention->flash_attn_func"]
+  },
+  "steps": [
+    {"step": 1, "loss": 0.5812, "grad_norm": 14.0152, "raw_grad_norm": 14.0152, "lr": 2.08e-07},
+    {"step": 2, "loss": 0.5560, "grad_norm": 13.8387, "raw_grad_norm": 13.8387, "lr": 4.17e-07},
+    {"step": 3, "loss": 0.5898, "grad_norm": 14.666, "raw_grad_norm": 14.666, "lr": 6.25e-07},
+    {"step": 4, "loss": 0.5377, "grad_norm": 12.8379, "raw_grad_norm": 12.8379, "lr": 8.33e-07},
+    {"step": 5, "loss": 0.5641, "grad_norm": 13.3682, "raw_grad_norm": 13.3682, "lr": 1.04e-06},
+    {"step": 6, "loss": 0.5837, "grad_norm": 13.1659, "raw_grad_norm": 13.1659, "lr": 1.25e-06},
+    {"step": 7, "loss": 0.5710, "grad_norm": 13.6559, "raw_grad_norm": 13.6559, "lr": 1.46e-06},
+    {"step": 8, "loss": 0.5262, "grad_norm": 12.0206, "raw_grad_norm": 12.0206, "lr": 1.67e-06},
+    {"step": 9, "loss": 0.5366, "grad_norm": 11.9552, "raw_grad_norm": 11.9552, "lr": 1.88e-06},
+    {"step": 10, "loss": 0.5475, "grad_norm": 11.5696, "raw_grad_norm": 11.5696, "lr": 2.08e-06},
+    {"step": 11, "loss": 0.5464, "grad_norm": 11.1314, "raw_grad_norm": 11.1314, "lr": 2.29e-06},
+    {"step": 12, "loss": 0.5043, "grad_norm": 8.1951, "raw_grad_norm": 8.1951, "lr": 2.50e-06},
+    {"step": 13, "loss": 0.4987, "grad_norm": 8.094, "raw_grad_norm": 8.094, "lr": 2.71e-06},
+    {"step": 14, "loss": 0.4868, "grad_norm": 6.3451, "raw_grad_norm": 6.3451, "lr": 2.92e-06},
+    {"step": 15, "loss": 0.4668, "grad_norm": 5.9331, "raw_grad_norm": 5.9331, "lr": 3.13e-06},
+    {"step": 16, "loss": 0.4681, "grad_norm": 4.8018, "raw_grad_norm": 4.8018, "lr": 3.33e-06},
+    {"step": 17, "loss": 0.4405, "grad_norm": 4.0051, "raw_grad_norm": 4.0051, "lr": 3.54e-06},
+    {"step": 18, "loss": 0.4365, "grad_norm": 3.3447, "raw_grad_norm": 3.3447, "lr": 3.75e-06},
+    {"step": 19, "loss": 0.4388, "grad_norm": 2.9321, "raw_grad_norm": 2.9321, "lr": 3.96e-06},
+    {"step": 20, "loss": 0.4352, "grad_norm": 2.4473, "raw_grad_norm": 2.4473, "lr": 4.17e-06}
+  ]
+}
